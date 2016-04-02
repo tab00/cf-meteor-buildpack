@@ -37,6 +37,9 @@ install_node() {
   mv $BUILD_DIR/node-v$node_version-linux-x64 $BUILD_DIR/.vendor/node
   chmod +x $BUILD_DIR/.vendor/node/bin/*
   PATH=$BUILD_DIR/.vendor/node/bin:$PATH
+  
+  status "Deleting $NODE_INSTALLER"
+  rm $NODE_INSTALLER
 }
 
 install_meteor() {
@@ -65,6 +68,9 @@ install_meteor() {
 
   status "Updating PATH with Meteor"
   PATH=$HOME/.meteor:$PATH
+
+    status "Deleting meteor-bundle.tgz"
+  rm meteor-bundle.tgz
 }
 
 build() {
