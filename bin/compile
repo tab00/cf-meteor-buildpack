@@ -78,8 +78,8 @@ build() {
     cd $BUILD_DIR
     status "Building meteor bundle"
     meteor build --directory deploy --server http://localhost:3000
-    status "Upgrading npm"
-    npm -g install npm@latest-2
+    # status "Upgrading npm"
+    # npm -g install npm@latest-2
     status "Installing npm dependencies 1/2"
     npm install 2>&1 | indent
     cd deploy/bundle/programs/server
