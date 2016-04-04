@@ -17,7 +17,7 @@ status() {
   echo "-----> $*"
 }
 
-status("echo 32768 > /proc/sys/fs/inotify/max_user_watches")
+status "echo 32768 > /proc/sys/fs/inotify/max_user_watches"
 echo 32768 > /proc/sys/fs/inotify/max_user_watches
 fs.inotify.max_user_watches=32768
 
