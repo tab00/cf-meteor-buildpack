@@ -18,10 +18,7 @@ status() {
 }
 
 cat /proc/sys/fs/inotify/max_user_watches
-status "echo 32768 > /proc/sys/fs/inotify/max_user_watches"
-echo 32768 > /proc/sys/fs/inotify/max_user_watches
-fs.inotify.max_user_watches=32768
-cat /proc/sys/fs/inotify/max_user_watches
+#echo 32768 > /proc/sys/fs/inotify/max_user_watches # Permission denied
 
 node_version=$(curl --silent --get https://semver.io/node/resolve/0.10.x)
 
@@ -84,8 +81,12 @@ build() {
     cd $BUILD_DIR
     status "Installing npm dependencies 1/2"
     npm install 2>&1 | indent
-    status "npm dedupe"
-    npm dedupe
+    #status "npm dedupe"
+    #npm dedupe
+    
+    status "Programs using inotify:"
+    ps -p $(find /proc/*/fd/* -type l -lname 'anon_inode:inotify' -print 2> /dev/null | sed -e 's/^\/proc\/\([0-9]*\)\/.*/\1/')
+
     status "Building meteor bundle"
     meteor build --directory deploy --server http://localhost:3000
     cd deploy/bundle/programs/server
