@@ -17,8 +17,12 @@ status() {
   echo "-----> $*"
 }
 
+status "max_user_watches"
 cat /proc/sys/fs/inotify/max_user_watches
 #echo 32768 > /proc/sys/fs/inotify/max_user_watches # Permission denied
+
+status "max_user_instances"
+cat /proc/sys/fs/inotify/max_user_instances
 
 node_version=$(curl --silent --get https://semver.io/node/resolve/0.10.x)
 
@@ -102,6 +106,9 @@ build() {
 install_node
 install_meteor
 build
+
+status "what's using up inotify watches:"
+for foo in /proc/*/fd/*; do readlink -f $foo; done |grep inotify |cut -d/ -f3 |xargs -I '{}' -- ps --no-headers -o '%p %U %c' -p '{}' |uniq -c |sort -nr
 
 status "Checking for post_compile script"
 if [ -f $BUILD_DIR/bin/post_compile ] ; then
