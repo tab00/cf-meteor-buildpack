@@ -88,9 +88,6 @@ build() {
     #status "npm dedupe"
     #npm dedupe
     
-    status "Programs using inotify:"
-    ps -p $(find /proc/*/fd/* -type l -lname 'anon_inode:inotify' -print 2> /dev/null | sed -e 's/^\/proc\/\([0-9]*\)\/.*/\1/')
-
     status "Building meteor bundle"
     meteor build --directory deploy --server http://localhost:3000
     cd deploy/bundle/programs/server
@@ -106,9 +103,6 @@ build() {
 install_node
 install_meteor
 build
-
-status "what's using up inotify watches:"
-for foo in /proc/*/fd/*; do readlink -f $foo; done |grep inotify |cut -d/ -f3 |xargs -I '{}' -- ps --no-headers -o '%p %U %c' -p '{}' |uniq -c |sort -nr
 
 status "Checking for post_compile script"
 if [ -f $BUILD_DIR/bin/post_compile ] ; then
