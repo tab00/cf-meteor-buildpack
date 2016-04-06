@@ -83,13 +83,13 @@ install_meteor() {
 build() {
   (
     cd $BUILD_DIR
-    status "Installing npm dependencies 1/2"
-    npm install 2>&1 | indent
     #status "npm dedupe"
     #npm dedupe
     
     status "Building meteor bundle"
     meteor build --directory deploy --server http://localhost:3000
+    status "Installing npm dependencies 1/2"
+    npm install 2>&1 | indent
     cd deploy/bundle/programs/server
     status "Installing npm dependencies 2/2"
     npm install 2>&1 | indent
