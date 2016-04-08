@@ -85,14 +85,19 @@ build() {
     cd $BUILD_DIR
     #status "npm dedupe"
     #npm dedupe
+    status "Installing npm dependencies 1/2"
+    cd deploy/bundle
+    npm install 2>&1 | indent
     
     status "Building meteor bundle"
     meteor build --directory deploy --server http://localhost:3000
-    status "Installing npm dependencies 1/2"
-    npm install 2>&1 | indent
-    cd deploy/bundle/programs/server
+
+    #cd deploy/bundle/programs/server
+    cd programs/server
+
     status "Installing npm dependencies 2/2"
     npm install 2>&1 | indent
+
     mv $BUILD_DIR/.vendor $BUILD_DIR/vendor
   )
 }
