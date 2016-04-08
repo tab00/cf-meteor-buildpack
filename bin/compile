@@ -82,17 +82,15 @@ install_meteor() {
 
 build() {
   (
-    cd $BUILD_DIR
-    #status "npm dedupe"
-    #npm dedupe
-
     status "Building meteor bundle"
     cd $BUILD_DIR
     meteor build --directory deploy --server http://localhost:3000
 
     status "Installing npm dependencies 1/2"
     cd deploy/bundle
+
 ls
+cat star.json
 
 #if [ -e package.json ]; then
     npm install 2>&1 | indent
