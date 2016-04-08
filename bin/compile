@@ -85,25 +85,20 @@ build() {
     cd $BUILD_DIR
     #status "npm dedupe"
     #npm dedupe
+
+    status "Building meteor bundle"
+    cd $BUILD_DIR
+    meteor build --directory deploy --server http://localhost:3000
+
     status "Installing npm dependencies 1/2"
-    pwd
-    ls
-    
-    mkdir -p deploy/bundle
     cd deploy/bundle
+ls
 
 if [ -e package.json ]; then
     npm install 2>&1 | indent
 fi    
-pwd
-ls
 
-    status "Building meteor bundle"
-    meteor build --directory deploy --server http://localhost:3000
-
-pwd
-ls
-    #cd deploy/bundle/programs/server
+    # cd deploy/bundle/programs/server
     cd programs/server
 
     status "Installing npm dependencies 2/2"
