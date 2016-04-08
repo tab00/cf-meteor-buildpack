@@ -94,9 +94,9 @@ build() {
     cd deploy/bundle
 ls
 
-if [ -e package.json ]; then
+#if [ -e package.json ]; then
     npm install 2>&1 | indent
-fi    
+#fi    
 
     # cd deploy/bundle/programs/server
     cd programs/server
