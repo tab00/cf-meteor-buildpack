@@ -86,6 +86,7 @@ build() {
     #status "npm dedupe"
     #npm dedupe
     status "Installing npm dependencies 1/2"
+    mkdir -p deploy/bundle
     cd deploy/bundle
     npm install 2>&1 | indent
     
